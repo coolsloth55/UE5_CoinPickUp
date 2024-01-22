@@ -48,6 +48,8 @@ public:
 	ACoinPickUpCharacter();
 	
 
+	void SetHUDScore(int32 score);
+
 protected:
 
 	/** Called for movement input */

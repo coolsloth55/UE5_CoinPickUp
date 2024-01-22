@@ -2,6 +2,7 @@
 
 
 #include "CP_CoinPickupActor.h"
+#include "CoinPickupGameState.h"
 
 // Sets default values
 ACP_CoinPickupActor::ACP_CoinPickupActor()
@@ -36,8 +37,21 @@ ACP_CoinPickupActor::ACP_CoinPickupActor()
 //
 void ACP_CoinPickupActor::OnBeginOverlapComponentEvent(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	// if not characer (nullptr) return early
 	if (!Cast<ACharacter>(OtherActor)) return;
 
+	// get current game state and update score
+	ACoinPickupGameState* CoinPickupGameState = Cast<ACoinPickupGameState>(GetWorld()->GetGameState());
+	if (CoinPickupGameState) {
+		CoinPickupGameState->CoinPickedUp();
+		CoinPickupGameState->OnCoinPickedUp();
+	}
+
+	if (GEngine) {
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("OnBeginOverlapComponentEvent()"));
+	}
+
+	// destroy coin actor
 	Destroy();
 }
 
@@ -45,13 +59,11 @@ void ACP_CoinPickupActor::OnBeginOverlapComponentEvent(UPrimitiveComponent* Over
 void ACP_CoinPickupActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void ACP_CoinPickupActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

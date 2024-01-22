@@ -3,6 +3,7 @@
 #include "CoinPickUpGameMode.h"
 #include "CoinPickUpCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "CoinPickupGameState.h"
 
 ACoinPickUpGameMode::ACoinPickUpGameMode()
 {
@@ -12,4 +13,8 @@ ACoinPickUpGameMode::ACoinPickUpGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	// set GameStateClass to custom game state
+	// UI is greyed out since c++
+	GameStateClass = ACoinPickupGameState::StaticClass();
 }
