@@ -6,7 +6,8 @@
 #include "GameFramework/GameMode.h"
 #include "CoinPickUpGameMode.generated.h"
 
-UCLASS(minimalapi)
+//UCLASS(minimalapi)
+UCLASS()
 class ACoinPickUpGameMode : public AGameMode
 {
 	GENERATED_BODY()

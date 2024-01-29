@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+//#include "CoinPickupCharacterHUD.h"
 #include "CoinPickupCharacterController.generated.h"
 
 /**
@@ -18,4 +19,13 @@ public:
 	// update score on HUD for player
 	void SetHUDScore(int32 Score);
 	
+protected:
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+	void PollInit();
+
+private:
+
+	UPROPERTY()
+	class ACoinPickupCharcterHUD* CoinPickupCharcterHUD;
 };

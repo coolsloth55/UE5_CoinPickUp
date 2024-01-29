@@ -31,5 +31,9 @@ void ACoinPickupGameState::OnCoinPickedUp()
 	ACoinPickupCharacterController* CoinPickupController = Cast<ACoinPickupCharacterController>(GetWorld()->GetFirstPlayerController());
 	if (CoinPickupController) {
 		CoinPickupController->SetHUDScore(Score);
+	} else {
+		if (GEngine) {
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("CoinPickupController is nullptr"));
+		}
 	}
 }
