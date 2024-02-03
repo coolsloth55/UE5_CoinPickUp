@@ -3,6 +3,7 @@
 
 #include "CP_CoinPickupActor.h"
 #include "CoinPickupGameState.h"
+#include "NiagaraFunctionLibrary.h"
 
 // Sets default values
 ACP_CoinPickupActor::ACP_CoinPickupActor()
@@ -49,6 +50,12 @@ void ACP_CoinPickupActor::OnBeginOverlapComponentEvent(UPrimitiveComponent* Over
 
 	if (GEngine) {
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("OnBeginOverlapComponentEvent()"));
+	}
+
+	// play niagara system effect
+	if (OnPickUpEffect) {
+		const FVector Offset = GetActorUpVector() * PickEffectSpawnOffset;
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, OnPickUpEffect, OtherActor->GetActorLocation() + Offset);
 	}
 
 	// destroy coin actor

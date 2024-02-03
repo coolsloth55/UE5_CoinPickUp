@@ -9,6 +9,8 @@
 #include "Components/SphereComponent.h"
 #include "CP_CoinPickupActor.generated.h"
 
+class UNiagaraSystem;
+
 UCLASS()
 class COINPICKUP_API ACP_CoinPickupActor : public AActor
 {
@@ -32,14 +34,20 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Coin Pickup")
 	TObjectPtr<UStaticMeshComponent> MeshComponent;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "Coin Pickup")
 	TObjectPtr<URotatingMovementComponent> RotatingMovementComponent;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "Coin Pickup")
 	TObjectPtr<USphereComponent> ColliderComponent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Coin Pickup")
+	TObjectPtr<UNiagaraSystem> OnPickUpEffect;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Coin Pickup")
+	float PickEffectSpawnOffset{ 90 };
 
 public:	
 	// Called every frame
